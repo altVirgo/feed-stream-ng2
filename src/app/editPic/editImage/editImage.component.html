@@ -1,0 +1,54 @@
+<!-- 搜索区-->
+<div class="row serach-box mt20">
+    <div class="input-search   col-lg-10">
+        <div class="input-group  fixed-input">
+            <input type="text" class="form-control" placeholder="搜索" aria-describedby="basic-addon2">
+            <span class="input-group-addon">
+                        <i class="iconfont icon-search"></i>
+                    </span>
+        </div>
+    </div>
+    <div class="col-lg-2 pl0 pr0">
+        <div (click)="isExpand = !isExpand" *ngIf="!isExpand">展开
+            <span class="iconfont icon-arrow_down_small"></span>
+        </div>
+        <div (click)="isExpand = !isExpand" *ngIf="isExpand">收起
+            <span class="iconfont icon-arrow_up_small"></span>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="isExpand">
+    <!-- 行业色彩 -->
+    <div class="row industry-colors-box mt20">
+        <div class="col-lg-3">行业色彩</div>
+        <div class="col-lg-9 pl0">
+            <span *ngFor="let color of industryColors;" class="pull-left" [ngStyle]="{'background':color.bgColor}" title="{{color.bgColor}}"></span>
+        </div>
+    </div>
+    <div class="switch-box row mt20">
+        <div class="col-lg-5">
+            <span>显示付费</span>
+            <span class="switch" [ngClass]="{'switch-on':switch.isPay,'switch-off':!switch.isPay}" (click)="switch.isPay = !switch.isPay"></span>
+        </div>
+        <div class="col-lg-7">
+            <span>自动匹配行业</span>
+            <span class="switch" [ngClass]="{'switch-on':switch.isAutoMatch,'switch-off':!switch.isAutoMatch}" (click)="switch.isAutoMatch = !switch.isAutoMatch"></span>
+        </div>
+    </div>
+</div>
+<!-- 素材区-->
+<div class="row sort-box mt20">
+    <div (click)="sort.byTime = !sort.byTime">价格
+        <span class="iconfont" [ngClass]="{'icon-arrow_down_small':sort.byTime,'icon-arrow_up_small':!sort.byTime}"></span>
+    </div>
+    <div (click)="sort.byHot = !sort.byHot">热度
+        <span class="iconfont" [ngClass]="{'icon-arrow_down_small':sort.byHot,'icon-arrow_up_small':!sort.byHot}"></span>
+    </div>
+    <div (click)="sort.byPrice = !sort.byPrice">上架时间
+        <span class="iconfont" [ngClass]="{'icon-arrow_down_small':sort.byPrice,'icon-arrow_up_small':!sort.byPrice}"></span>
+    </div>
+</div>
+<div class="clearfix material-box" [class.showMore]="!isExpand">
+    <img *ngFor="let item of imageOptions;" [src]="item.src" [attr.imgSize]="'img-'+item.type" (click)="addEle(item)">
+</div>

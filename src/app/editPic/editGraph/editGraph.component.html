@@ -1,0 +1,15 @@
+<!-- 搜索区 -->
+<div class="serach-box mt20">
+    <div class="input-search">
+        <div class="input-group  fixed-input">
+            <input type="text" class="form-control" placeholder="搜索" aria-describedby="basic-addon2">
+            <span class="input-group-addon">
+                        <i class="iconfont icon-search"></i>
+                    </span>
+        </div>
+    </div>
+</div>
+<!-- 素材区-->
+<div class="mt20 clearfix material-box">
+    <img *ngFor="let item of graphOptions;" [src]="item.src" (click)="addEle(item)">
+</div>

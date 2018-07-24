@@ -1,0 +1,9 @@
+<form nz-form [formGroup]="validateForm">
+    <div nz-form-item nz-row>
+        <div nz-form-control nzHasFeedback>
+            <nz-input [nzSize]="'large'" formControlName="docName" [nzId]="'docName'" [(ngModel)]="docName"></nz-input>
+            <div nz-form-explain *ngIf="getFormControl('docName').dirty&&getFormControl('docName').hasError('required')">Please input name!</div>
+            <div nz-form-explain *ngIf="getFormControl('docName').dirty&&(getFormControl('docName').hasError('minlength')||getFormControl('docName').hasError('maxlength'))">Please input name : length range is 2-25</div>
+        </div>
+    </div>
+</form>

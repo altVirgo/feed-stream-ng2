@@ -1,0 +1,376 @@
+.main {
+  display: flex;
+  min-width: 1200px;
+  min-height: 680px;
+}
+.main nav {
+  position: absolute;
+  height: calc(100% - 80px);
+  min-height: 680px;
+  width: 96px;
+  padding-top: 50px;
+  background: #3b7ff7;
+  font-size: 14px;
+}
+.main nav li {
+  text-align: center;
+  width: 96px;
+  height: 88px;
+  padding-top: 10px;
+  line-height: 28px;
+  color: #fff;
+}
+.main nav li span.icon {
+  display: block;
+  height: 50px;
+  font-size: 40px;
+  text-align: center;
+  line-height: 50px;
+}
+.main nav li span.icon.icon-graph,
+.main nav li span.icon.icon-size,
+.main nav li span.icon.icon-text {
+  font-size: 50px;
+}
+.main nav li.active {
+  cursor: pointer;
+  background: #fff;
+  color: #3b7ff7;
+}
+.main nav li.active:hover {
+  background: #fff;
+}
+.main nav li:hover {
+  cursor: pointer;
+  background: #6da3ff;
+}
+.main .main-right {
+  flex: 1;
+  border-top: 1px solid #dfdede;
+  overflow: hidden;
+  margin-left: 96px;
+  min-width: 1104px;
+  min-height: 680px;
+}
+.main .main-right .nav-content {
+  width: 320px;
+  padding: 0 20px;
+  overflow: hidden;
+  z-index: 10;
+  box-shadow: 2px 2px 2px 2px #f1f1f1;
+}
+.main .main-right .view-container {
+  flex: 1;
+  background-color: #f2f4f8;
+  position: relative;
+}
+.main .main-right .view-container #view-box {
+  width: 100%;
+  height: calc(100% - 102px);
+  position: relative;
+  top: 44px;
+  overflow: hidden;
+}
+.main .main-right .view-container #view-box #canvas-box {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+.main .main-right .view-container #view-box .canvas-info {
+  text-align: center;
+  height: 30px;
+  line-height: 30px;
+  top: 0;
+  z-index: 10;
+  opacity: 0.3;
+  color: #3B7FF7;
+}
+.main .main-right .view-container #view-box #canvas-box {
+  background: url('../../assets/images/tansBg.jpg') repeat;
+}
+.main .main-right .view-container .tool-bar-top {
+  position: absolute;
+  width: 100%;
+  line-height: 20px;
+  background: #fff;
+  z-index: 2;
+}
+.main .main-right .view-container .tool-bar-top .box-shadow {
+  position: relative;
+}
+.main .main-right .view-container .tool-bar-top .box-shadow span.iconfont {
+  font-size: 30px;
+}
+.main .main-right .view-container .tool-bar-top .box-shadow .dialog {
+  width: 248px;
+  position: absolute;
+  background: white;
+  border-radius: 5px;
+  top: 42px;
+  left: -80px;
+  box-shadow: 2px 2px 10px 2px #f1f1f1;
+  z-index: 20;
+}
+.main .main-right .view-container .tool-bar-top .box-shadow .dialog ul {
+  height: inherit;
+}
+.main .main-right .view-container .tool-bar-top .box-shadow .dialog ul li {
+  height: 29px;
+  display: flex;
+}
+.main .main-right .view-container .tool-bar-top .box-shadow .dialog ul li .text-info {
+  color: #000000;
+  text-align: center;
+  padding: 2px;
+  flex: 1;
+  color: #666666;
+}
+.main .main-right .view-container .tool-bar-top .box-shadow .dialog ul li .hand {
+  width: 91px;
+  display: flex;
+  height: 27px;
+  flex: 2;
+  position: relative;
+}
+.main .main-right .view-container .tool-bar-top .box-shadow .dialog ul li .hand .slider-start {
+  flex: 1;
+}
+.main .main-right .view-container .tool-bar-top .box-shadow .dialog ul li .hand .slider-end {
+  flex: 1;
+  padding-right: 9px;
+}
+.main .main-right .view-container .tool-bar-top .box-shadow .dialog ul li .hand nz-slider {
+  position: relative;
+  top: -6px;
+  flex: 10;
+}
+.main .main-right .view-container .tool-bar-top .box-shadow .dialog ul li .hand .color {
+  top: 50%;
+  left: 30px;
+  transform: translateY(-50%) translateX(-50%);
+  width: 65px;
+  height: 16px;
+  border: 1px solid #e8e8e8;
+  position: absolute;
+}
+.main .main-right .view-container .tool-bar-top .tool-bar-text-box {
+  float: left;
+  animation: myfirst 0.4s;
+  z-index: 1;
+  box-sizing: border-box;
+}
+.main .main-right .view-container .tool-bar-top .tool-bar-text-box .bar-span {
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+.main .main-right .view-container .tool-bar-top .space {
+  position: relative;
+}
+.main .main-right .view-container .tool-bar-top .space .space-box {
+  width: 220px;
+  padding: 0 10px;
+  position: absolute;
+  top: 42px;
+  left: -110px;
+  background: #fff;
+  box-shadow: 2px 2px 2px 2px #f1f1f1;
+  border-radius: 5px;
+  z-index: 20;
+}
+.main .main-right .view-container .tool-bar-top .space .space-box .item {
+  display: flex;
+}
+.main .main-right .view-container .tool-bar-top .space .space-box .item .info-label {
+  flex: 2;
+  padding: 6px 0;
+}
+.main .main-right .view-container .tool-bar-top .space .space-box .item .slider-box {
+  flex: 3;
+  width: 110px;
+}
+.main .main-right .view-container .tool-bar-top .space .space-box .item .slider-end {
+  flex: 1;
+  padding: 6px 0;
+}
+.main .main-right .view-container .tool-bar-top .icon-minimize.disabled {
+  color: #dedada;
+}
+.main .main-right .view-container .tool-bar-top .icon-maxmize.disabled {
+  color: #dedada;
+}
+.main .main-right .view-container .tool-bar-top input {
+  margin: 10px 0;
+  float: left;
+  width: 50px;
+  height: 20px;
+  line-height: 20px;
+  border: none;
+  outline: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.main .main-right .view-container .tool-bar-top input.font-size {
+  border: 1px solid #d1cfcf;
+  padding: 2px;
+  border-radius: 2px;
+}
+.main .main-right .view-container .tool-bar-top label {
+  font-weight: normal;
+}
+.main .main-right .view-container .tool-bar-top .iconfont {
+  width: 26px;
+  height: 24px;
+  float: left;
+}
+.main .main-right .view-container .tool-bar-top .bar-span {
+  margin: 10px 0;
+  float: left;
+  cursor: pointer;
+}
+.main .main-right .view-container .tool-bar-top .bar-span.iconfont,
+.main .main-right .view-container .tool-bar-top .bar-span .iconfont {
+  font-size: 22px;
+  border-radius: 2px;
+  padding: 2px;
+  text-align: center;
+}
+.main .main-right .view-container .tool-bar-top .bar-span.iconfont.active,
+.main .main-right .view-container .tool-bar-top .bar-span .iconfont.active,
+.main .main-right .view-container .tool-bar-top .bar-span.iconfont:hover,
+.main .main-right .view-container .tool-bar-top .bar-span .iconfont:hover {
+  color: #6da3ff;
+  background: #E7EEFA;
+}
+.main .main-right .view-container .tool-bar-top .bar-span.name {
+  color: #6da3ff;
+  background: #afc1df7a;
+  padding: 0 10px;
+  border-radius: 10px;
+}
+.main .main-right .view-container .tool-bar-top .bar-span.size {
+  padding: 0 10px;
+  letter-spacing: 1px;
+}
+.main .main-right .view-container .tool-bar-top .bar-span.size.active,
+.main .main-right .view-container .tool-bar-top .bar-span.size:hover {
+  color: #6da3ff;
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+.main .main-right .view-container .tool-bar-top .bar-span.color {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #e8e8e8;
+  background-color: #000000;
+}
+.main .main-right .view-container .tool-bar-top .font-family {
+  margin-left: 15px;
+  width: 140px;
+}
+.main .main-right .view-container .tool-bar-top .size-box {
+  position: absolute;
+  top: 48px;
+  left: 140px;
+  background: #fff;
+  box-shadow: 2px 2px 2px 2px #f1f1f1;
+  border-radius: 5px;
+}
+.main .main-right .view-container .tool-bar-top .size-box li {
+  width: 120px;
+  height: 28px;
+  line-height: 28px;
+  position: relative;
+  padding-left: 20px;
+}
+.main .main-right .view-container .tool-bar-top .size-box li:hover {
+  background: #afc1df7a;
+}
+.main .main-right .view-container .tool-bar-top .size-box li div {
+  position: absolute;
+  top: 0;
+  left: 120px;
+  background: #fff;
+}
+.main .main-right .view-container .tool-bar-top .size-box li div li {
+  width: 140px;
+}
+.main .main-right .view-container .tool-bar-top .transparency {
+  position: relative;
+  display: inline;
+  font-weight: normal;
+}
+.main .main-right .view-container .tool-bar-top .transparency .number-label {
+  float: left;
+  padding: 0 5px;
+  margin-top: 5px;
+}
+.main .main-right .view-container .tool-bar-top .transparency nz-slider {
+  float: left;
+  width: 120px;
+}
+.main .main-right .view-container .tool-bar-top .transparency .icon-transparency {
+  font-size: 22px;
+  position: relative;
+  top: 2px;
+}
+.main .main-right .view-container .tool-bar-top .transparency .transparency-box {
+  width: 200px;
+  padding: 0 10px;
+  position: absolute;
+  left: -56px;
+  top: 26px;
+  background: #fff;
+  box-shadow: 2px 2px 2px 2px #f1f1f1;
+  border-radius: 5px;
+  z-index: 100;
+}
+.main .main-right .view-container .tool-bar-bottom {
+  position: absolute;
+  width: 100%;
+  height: 58px;
+  bottom: 0;
+  background: #fff;
+  border-left: 1px solid #e8e5e5;
+}
+.main .main-right .view-container .tool-bar-bottom .upload-form {
+  width: 0;
+  height: 0;
+  display: inline-block;
+}
+.main .main-right .view-container .tool-bar-bottom button {
+  height: 38px;
+  line-height: 38px;
+  padding: 0 10px;
+  border: none;
+  background: #3b7ff7;
+  color: #fff;
+}
+.main .main-right .view-container .tool-bar-bottom button:hover {
+  background: #327bf8;
+}
+.main .main-right .view-container .tool-bar-bottom button span {
+  font-size: 22px;
+  float: left;
+}
+.main .main-right .view-container .zoom {
+  position: absolute;
+  right: 20px;
+  bottom: 80px;
+  background: #d8e0ec;
+}
+.main .main-right .view-container .zoom .move {
+  background: #4183f9;
+  cursor: move;
+}
+.main.full-screen {
+  width: 100%;
+}
+.main.full-screen .main-right {
+  position: absolute;
+  height: calc(100% - 80px);
+  display: flex;
+  overflow: hidden;
+  width: calc(100% - 96px);
+}

@@ -1,0 +1,25 @@
+<header>
+    <div class="logo pull-left"></div>
+    <nav class="pull-left">
+        <ul>
+            <li routerLink="./pickPic" routerLinkActive="active">
+                <b>{{ 'TITLE_WANTNA_FIND_PIC' | translate}}</b>
+            </li>
+            <li routerLink="./editPic" routerLinkActive="active">
+                <b>{{ 'TITLE_WANTNA_EDIT_PIC' | translate}}</b>
+            </li>
+            <li routerLink="./myPic" routerLinkActive="active">
+                <b>{{ 'TITLE_MY_PIC_LIBRARY' | translate}}</b>
+            </li>
+        </ul>
+    </nav>
+    <div class="user-info pull-right">
+        <div class="pull-left">{{ 'welcome' | translate}}</div>
+        <div class="pull-left">
+            <img src="../assets/images/temp/jpg1.png" alt="">
+        </div>
+        <div class="pull-left">百度凤巢</div>
+        <div class="pull-left"><a href="javascript:;" (click)="toggleLang()">{{lang}}</a></div>
+    </div>
+</header>
+<router-outlet></router-outlet>

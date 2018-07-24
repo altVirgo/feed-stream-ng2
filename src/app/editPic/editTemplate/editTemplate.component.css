@@ -1,0 +1,30 @@
+.serach-box .col-lg-2 {
+  padding: 0;
+  line-height: 30px;
+}
+.serach-box .input-group input {
+  border-right: none;
+}
+.serach-box .input-group .input-group-addon {
+  background: #ffffff;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+.serach-box .input-group .input-group-addon i {
+  font-size: 24px;
+}
+.material-box {
+  position: absolute;
+  width: 292px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin-top: 10px;
+  height: calc(100% - 90px);
+}
+.material-box img {
+  width: 280px;
+  height: 137px;
+  margin-bottom: 4px;
+  float: left;
+  cursor: pointer;
+}

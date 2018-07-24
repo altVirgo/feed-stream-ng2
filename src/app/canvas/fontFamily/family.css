@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'han-yi-xiao-mai-ti-jian';
+  src: url('han-yi-xiao-mai-ti-jian.ttf');
+  /* IE9+ */
+  font-weight: bold;
+}
+@font-face {
+  font-family: 'han-yi-you-ran-ti-jian';
+  src: url('han-yi-you-ran-ti-jian.ttf');
+  /* IE9+ */
+  font-weight: bold;
+}

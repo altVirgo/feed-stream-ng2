@@ -1,0 +1,24 @@
+<!-- 搜索区 -->
+<div class="serach-box mt20">
+    <div class="input-search">
+        <div class="input-group  fixed-input">
+            <input type="text" class="form-control" placeholder="搜索" aria-describedby="basic-addon2">
+            <span class="input-group-addon">
+                        <i class="iconfont icon-search"></i>
+                    </span>
+        </div>
+    </div>
+</div>
+
+<!-- 背景 搜索区-->
+<div class="row industry-colors-box mt20">
+    <div class="col-lg-3 pr0">背景颜色</div>
+    <div class="col-lg-9 pl0">
+        <span *ngFor="let color of industryColors;" class="pull-left" [ngStyle]="{'background':color.bgColor}" title="{{color.bgColor}}" (click)="changeBg(color.bgColor)"></span>
+    </div>
+</div>
+
+<!-- 素材区-->
+<div class="mt20 clearfix material-box">
+    <img *ngFor="let item of bgOptions;" [src]="item.src" (click)="changeBg(item)">
+</div>

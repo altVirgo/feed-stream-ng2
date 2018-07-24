@@ -1,0 +1,132 @@
+.set-size-box {
+  width: 100%;
+  height: 100%;
+  min-width: 1100px;
+  padding-top: 15px;
+  text-align: center;
+  margin-left: 5px;
+}
+.set-size-box ul.nav {
+  height: 50px;
+}
+.set-size-box ul.nav li {
+  cursor: pointer;
+  display: inline-block;
+  line-height: 36px;
+  font-size: 16px;
+  color: #333;
+}
+.set-size-box ul.nav li:first-child {
+  margin-right: 60px;
+}
+.set-size-box ul.nav li.active {
+  color: #666;
+  border-bottom: 3px solid #327bf8;
+}
+.set-size-box .baidu-size-box {
+  height: calc(100% - 66px);
+  overflow: auto;
+  overflow-x: hidden;
+}
+.set-size-box .baidu-size-box > div {
+  width: 1040px;
+  display: inline-block;
+}
+.set-size-box .baidu-size-box .browser-size {
+  position: relative;
+}
+.set-size-box .baidu-size-box .browser-size .pic-size-box:last-child {
+  position: absolute;
+  left: 481px;
+  top: 187px;
+}
+.set-size-box .baidu-size-box h5 {
+  text-align: left;
+  margin-bottom: 10px;
+  margin-top: 15px;
+}
+.set-size-box .baidu-size-box button {
+  display: none;
+}
+.set-size-box .baidu-size-box .pic-size-box {
+  color: #3b7ff7;
+  float: left;
+  position: relative;
+  text-align: center;
+  margin-right: 40px;
+}
+.set-size-box .baidu-size-box .pic-size-box .three-pic,
+.set-size-box .baidu-size-box .pic-size-box .single-pic {
+  border: 1px solid #ffffff;
+  color: #3b7ff7;
+}
+.set-size-box .baidu-size-box .pic-size-box .three-pic:hover,
+.set-size-box .baidu-size-box .pic-size-box .single-pic:hover {
+  border: 1px dashed #3b7ff7;
+}
+.set-size-box .baidu-size-box .pic-size-box .three-pic:hover button,
+.set-size-box .baidu-size-box .pic-size-box .single-pic:hover button {
+  display: block;
+}
+.set-size-box .baidu-size-box .pic-size-box:last-child {
+  margin-right: 0;
+}
+.set-size-box .baidu-size-box .pic-size-box label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-weight: normal;
+  line-height: 12px;
+  color: #3b7ff7;
+}
+.set-size-box .baidu-size-box .pic-size-box button {
+  height: 32px;
+  line-height: 28px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  padding: 0 10px;
+  border: none;
+  background: #3b7ff7;
+  color: #fff;
+}
+.set-size-box .baidu-size-box .pic-size-box .single-pic {
+  background: #DFE8F7;
+}
+.set-size-box .baidu-size-box .pic-size-box .three-pic span {
+  float: left;
+  background: #DFE8F7;
+  margin-left: 4px;
+}
+.set-size-box .baidu-size-box .pic-size-box .three-pic span:first-child {
+  margin-left: 0;
+}
+.set-size-box .customize-size-box label {
+  font-weight: normal;
+  font-size: 14px;
+}
+.set-size-box .customize-size-box form div.ant-form-item-control-wrapper {
+  width: 80px;
+}
+.set-size-box .customize-size-box input {
+  width: 52px;
+  height: 24px;
+  line-height: 24px;
+  border-radius: 12px;
+  box-shadow: none;
+  padding-left: 4px;
+  outline: none;
+  border: 1px solid #96b9f7;
+  margin: 0 10px;
+}
+.set-size-box .customize-size-box button {
+  margin: 20px 0 0 280px;
+  color: #fff;
+  background: #327bf8;
+}
+.set-size-box .customize-size-box span {
+  margin: 0 20px;
+}
+.set-size-box .customize-size-box p {
+  line-height: 50px;
+}

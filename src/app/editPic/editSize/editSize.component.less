@@ -1,0 +1,134 @@
+.set-size-box {
+    width: 100%;
+    height: 100%;
+    min-width: 1100px;
+    padding-top: 15px;
+    text-align: center;
+    margin-left: 5px;
+    ul.nav {
+        height: 50px;
+        li {
+            cursor: pointer;
+            display: inline-block;
+            line-height: 36px;
+            font-size: 16px;
+            color: #333;
+            &:first-child {
+                margin-right: 60px;
+            }
+            &.active {
+                color: #666;
+                border-bottom: 3px solid #327bf8;
+            }
+        }
+    }
+    .baidu-size-box {
+        height: calc(~'100% - 66px');
+        overflow: auto;
+        overflow-x: hidden;
+        &>div {
+            width: 1040px;
+            display: inline-block;
+        }
+        .browser-size {
+            position: relative;
+            .pic-size-box:last-child {
+                position: absolute;
+                left: 481px;
+                top: 187px;
+            }
+        }
+        h5 {
+            text-align: left;
+            margin-bottom: 10px;
+            margin-top: 15px;
+        }
+        button {
+            display: none;
+        }
+        .pic-size-box {
+            color: #3b7ff7;
+            float: left;
+            position: relative;
+            text-align: center;
+            margin-right: 40px;
+            .three-pic,
+            .single-pic {
+                border: 1px solid #ffffff;
+                color: #3b7ff7;
+                &:hover {
+                    border: 1px dashed #3b7ff7;
+                    button {
+                        display: block;
+                    }
+                }
+            }
+            &:last-child {
+                margin-right: 0;
+            }
+            label {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                font-weight: normal;
+                line-height: 12px;
+                color: #3b7ff7;
+            }
+            button {
+                height: 32px;
+                line-height: 28px;
+                position: absolute;
+                bottom: 10px;
+                right: 10px;
+                padding: 0 10px;
+                border: none;
+                background: #3b7ff7;
+                color: #fff;
+            }
+            .single-pic {
+                background: #DFE8F7;
+            }
+            .three-pic span {
+                float: left;
+                background: #DFE8F7;
+                margin-left: 4px;
+                &:first-child {
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+    .customize-size-box {
+        label {
+            font-weight: normal;
+            font-size: 14px;
+        }
+        form {
+            div.ant-form-item-control-wrapper {
+                width: 80px;
+            }
+        }
+        input {
+            width: 52px;
+            height: 24px;
+            line-height: 24px;
+            border-radius: 12px;
+            box-shadow: none;
+            padding-left: 4px;
+            outline: none;
+            border: 1px solid #96b9f7;
+            margin: 0 10px;
+        }
+        button {
+            margin: 20px 0 0 280px;
+            color: #fff;
+            background: #327bf8;
+        }
+        span {
+            margin: 0 20px;
+        }
+        p {
+            line-height: 50px;
+        }
+    }
+}

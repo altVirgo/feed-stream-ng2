@@ -1,0 +1,43 @@
+header {
+  height: 80px;
+  line-height: 80px;
+  min-width: 1200px;
+  font-size: 14px;
+  overflow: hidden;
+}
+header .logo {
+  width: 236px;
+  height: 80px;
+  background: url("../../assets/images/logo.png") 30px center no-repeat;
+}
+header .user-info div {
+  margin-right: 20px;
+}
+header .user-info div img {
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  margin-top: 11px;
+}
+header .user-info div a {
+  display: inline-block;
+  height: 30px;
+  width: 30px;
+  line-height: 30px;
+  background-color: #3b7ff7;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 15px;
+  text-decoration: none;
+}
+header nav li {
+  cursor: pointer;
+  float: left;
+  height: 80px;
+  font-size: 14px;
+  margin-right: 120px;
+}
+header nav li:hover,
+header nav li.active {
+  border-bottom: 2px solid #3b7ff7;
+}

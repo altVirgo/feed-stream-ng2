@@ -1,0 +1,77 @@
+<div class="set-size-box mb40">
+    <!-- editSize:{{'welcome' | translate}},{{abc}} -->
+    <ul class="nav">
+        <li [class.active]='!enableCustomize' (click)="enableCustomize = false">{{'SIZE_BAIDU' | translate}}</li>
+        <li [class.active]='enableCustomize' (click)="enableCustomize = true">{{'SIZE_CUSTOMIZE' | translate}}</li>
+    </ul>
+    <!-- 百度广告位尺寸 -->
+    <div class="baidu-size-box" *ngIf="!enableCustomize">
+        <div *ngFor="let item of sizeOption" class="{{item.class}}">
+            <h5>{{item.title}}</h5>
+            <div *ngFor="let sizeInfo of item.option" class="pic-size-box">
+                <div class="single-pic" *ngIf="sizeInfo.type===0" [ngStyle]="{'height': sizeInfo.height/1.5+'px','width': sizeInfo.width/1.5+'px','line-height': sizeInfo.height/1.5+'px'}">
+                    {{sizeInfo.width}} X {{sizeInfo.height}}
+                    <label for="">{{sizeInfo.title}}</label>
+                    <button type="button" class="btn" (click)="setSizeFunc(sizeInfo,item.title)">{{'SIZE_START_DESIGN' | translate}}</button>
+                </div>
+                <div class="three-pic clearfix" *ngIf="sizeInfo.type===1">
+                    <span [ngStyle]="{'height': sizeInfo.height/1.5+'px','width': sizeInfo.width/1.5+'px','line-height': sizeInfo.height/1.5+'px'}">
+                  {{sizeInfo.width}} X {{sizeInfo.height}}
+                </span>
+                    <span [ngStyle]="{'height': sizeInfo.height/1.5+'px','width': sizeInfo.width/1.5+'px','line-height': sizeInfo.height/1.5+'px'}">
+                  {{sizeInfo.width}} X {{sizeInfo.height}}
+                </span>
+                    <span [ngStyle]="{'height': sizeInfo.height/1.5+'px','width': sizeInfo.width/1.5+'px','line-height': sizeInfo.height/1.5+'px'}">
+                  {{sizeInfo.width}} X {{sizeInfo.height}}
+                </span>
+
+                    <label for="">{{sizeInfo.title}}</label>
+                    <button type="button" class="btn" (click)="setSizeFunc(sizeInfo,item.title)">{{'SIZE_START_DESIGN' | translate}}</button>
+                </div>
+                <div class="" *ngIf="sizeInfo.type===2" [ngStyle]="{'height': sizeInfo.height/1.5+'px','width': sizeInfo.width/1.5+'px','line-height': sizeInfo.height/1.5+'px'}"></div>
+            </div>
+        </div>
+    </div>
+    <!-- 自定义尺寸 -->
+    <div class="customize-size-box" *ngIf="enableCustomize">
+        <form nz-form [formGroup]="validateForm" [nzLayout]="'inline'">
+            <div nz-form-item>
+                <div nz-form-label>
+                    <label for="width" nz-form-item-required>{{'LABEL_WIDTH' | translate}}</label>
+                </div>
+                <div nz-form-control>
+                    <nz-input formControlName="width" [nzId]="'width'" [(ngModel)]="customizeSize.width">
+                        <ng-template #addOnAfter>px</ng-template>
+                    </nz-input>
+                    <div nz-form-explain *ngIf="getFormControl('width').dirty&&getFormControl('width').hasError('required')">40-1200</div>
+                </div>
+            </div>
+            <div nz-form-item>
+                <div nz-form-label>
+                    X
+                </div>
+            </div>
+            <div nz-form-item>
+                <div nz-form-label>
+                    <label for="height" nz-form-item-required>{{'LABEL_HEIGHT' | translate}}</label>
+                </div>
+                <div nz-form-control>
+                    <nz-input formControlName="height" [nzId]="'height'" [(ngModel)]="customizeSize.height">
+                        <ng-template #addOnAfter>px</ng-template>
+                    </nz-input>
+                    <div nz-form-explain *ngIf="getFormControl('height').dirty&&getFormControl('height').hasError('required')">0-1200</div>
+                </div>
+            </div>
+        </form>
+        <p>{{'TIP_INPUT_WIDTH_HEIGHT' | translate}}</p>
+        <button type="button" class="btn" (click)="userSetSizeFunc(customizeSize)">{{'SIZE_START_DESIGN' | translate}}</button>
+        <!-- <div>
+            <label for="">{{'LABEL_WIDTH' | translate}}</label>
+            <input type="number" min="0" max="1200" [(ngModel)]="customizeSize.width">px
+            <span>X</span>
+            <label for="">{{'LABEL_HEIGHT' | translate}}</label>
+            <input type="number" min="0" max="1200" [(ngModel)]="customizeSize.height">px
+            
+        </div> -->
+    </div>
+</div>

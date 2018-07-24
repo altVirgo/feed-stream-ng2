@@ -1,0 +1,30 @@
+.text-type-box {
+  padding-top: 20px;
+}
+.text-type-box h3,
+.text-type-box h4,
+.text-type-box h6 {
+  height: 40px;
+  line-height: 40px;
+  padding-left: 10px;
+}
+.text-type-box h3:hover,
+.text-type-box h4:hover,
+.text-type-box h6:hover {
+  background: #f2f8f4;
+  cursor: default;
+}
+.material-box {
+  position: absolute;
+  width: 292px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin-top: 10px;
+  height: calc(100% - 230px);
+}
+.material-box img {
+  width: 90px;
+  height: 90px;
+  float: left;
+  cursor: pointer;
+}

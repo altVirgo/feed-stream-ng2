@@ -1,0 +1,60 @@
+.serach-box .col-lg-2 {
+  padding: 0;
+  line-height: 30px;
+}
+.serach-box .col-lg-2 div {
+  cursor: pointer;
+}
+.serach-box .input-group input {
+  border-right: none;
+}
+.serach-box .input-group .input-group-addon {
+  background: #ffffff;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+.serach-box .input-group .input-group-addon i {
+  font-size: 24px;
+}
+.industry-colors-box {
+  color: #333;
+  display: flex;
+}
+.industry-colors-box .label {
+  color: #666;
+  font-weight: 100;
+}
+.industry-colors-box span {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+.industry-colors-box .col-lg-3 {
+  padding-right: 0;
+}
+.industry-colors-box .col-lg-9 {
+  padding: 0;
+}
+.industry-colors-box .col-lg-9 span {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+.material-box {
+  position: absolute;
+  width: 292px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin-top: 10px;
+  height: calc(100% - 150px);
+}
+.material-box img {
+  width: 90px;
+  height: 90px;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  float: left;
+  cursor: pointer;
+}

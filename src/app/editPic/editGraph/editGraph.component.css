@@ -1,0 +1,14 @@
+.material-box {
+  position: absolute;
+  width: 292px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin-top: 10px;
+  height: calc(100% - 90px);
+}
+.material-box img {
+  width: 90px;
+  height: 90px;
+  float: left;
+  cursor: pointer;
+}

@@ -1,0 +1,294 @@
+<div class="main" [class.full-screen]="curShowType!=='size'">
+    <nav class="main-left">
+        <ul>
+            <li *ngFor="let item of menus" [class.active]="curShowType===item.type" (click)="curShowType=item.type">
+                <span class="icon {{item.iconClass}}"></span> {{item.label | translate}}
+            </li>
+        </ul>
+    </nav>
+
+    <!-- 选择尺寸 -->
+    <div class="main-right" *ngIf="curShowType === 'size'">
+        <app-edit-size (picSize)='onPicSizeChange($event)'></app-edit-size>
+    </div>
+
+    <!-- 非选择尺寸 -->
+    <div class="main-right" [hidden]="curShowType === 'size'">
+        <!-- 素材区 -->
+        <div class="nav-content" [ngSwitch]="curShowType">
+            <app-edit-template *ngSwitchCase="'template'" (selectTemplate)='onSelectEle($event)'>edit-template</app-edit-template>
+            <app-edit-image *ngSwitchCase="'image'" (selectImage)='onSelectEle($event)'>edit-image</app-edit-image>
+            <app-edit-text *ngSwitchCase="'text'" (selectText)='onSelectEle($event)'>edit-text</app-edit-text>
+            <app-edit-graph *ngSwitchCase="'graph'" (selectGraph)='onSelectEle($event)'>edit-graph</app-edit-graph>
+            <app-edit-bg *ngSwitchCase="'bg'" (selectBg)='onSelectEle($event)'>edit-bg</app-edit-bg>
+            <!-- <app-edit-owned *ngSwitchCase="'owned'" (selectOwned)='onSelectOwned($event)'>edit-owned</app-edit-owned> -->
+        </div>
+        <!-- 视图区 -->
+        <div class="view-container">
+            <!-- {{activeOptions | json}} -->
+            <!--顶部工具栏-->
+            <div class="tool-bar-top clearfix">
+                <!-- 文件名 -->
+                <span class="name ml20 bar-span">未命名设计</span>
+                <!-- 图片尺寸 -->
+                <div class="size ml40 bar-span">
+                    <nz-dropdown>
+                        <a class="ant-dropdown-link" nz-dropdown>
+                                    {{canvasConfig.type===1?canvasOptions?.width/3 :canvasOptions?.width}}px X {{canvasOptions?.height}}px
+                                    <i class="anticon anticon-down"></i>
+                                </a>
+                        <ul nz-menu>
+                            <ng-container *ngFor="let item of sizeOptions">
+                                <li *ngIf="!item.list" nz-menu-item (click)="selectSize(item)">{{item.label}}</li>
+                                <li *ngIf="item.list" nz-submenu>
+                                    <span title>{{item.label}}</span>
+                                    <ul>
+                                        <li *ngFor="let obj of item.list" nz-menu-item (click)="selectSize(obj,item)">{{obj.label+' '+ obj.value.x +'×'+ obj.value.y }}</li>
+                                    </ul>
+                                </li>
+                            </ng-container>
+                        </ul>
+                    </nz-dropdown>
+                </div>
+                <!-- 置底 -->
+                <nz-tooltip placement="top" [nzTitle]="translate.instant('TITLE_SET_THE_BOTTON')" [nzMouseLeaveDelay]="300000">
+                    <span nz-tooltip class="iconfont icon-down ml20 bar-span" (click)="canvas.setEleBottom()"></span>
+                </nz-tooltip>
+                <!-- 置顶 -->
+                <nz-tooltip placement="top" [nzTitle]="translate.instant('TITLE_SET_THE_TOP')">
+                    <span nz-tooltip class="iconfont icon-up ml20 bar-span" (click)="canvas.setEleTop()"></span>
+                </nz-tooltip>
+                <!-- 左右反转 -->
+                <nz-tooltip placement="top" [nzTitle]="translate.instant('TITLE_SET_FLIP_HORIZONTAL')">
+                    <span nz-tooltip class="iconfont icon-lr ml20 bar-span" (click)="canvas.flipHorizontal()"></span>
+                </nz-tooltip>
+                <!-- 上下反转 -->
+                <nz-tooltip placement="top" [nzTitle]="translate.instant('TITLE_SET_FLIP_VERTICAL')">
+                    <span nz-tooltip class="iconfont icon-ud ml20 bar-span" (click)="canvas.flipVertical()"></span>
+                </nz-tooltip>
+                <!-- 撤销 -->
+                <nz-tooltip placement="top" [nzTitle]="translate.instant('TITLE_SET_TO_PREVIOUS')">
+                    <span nz-tooltip class="iconfont icon-cancel ml20 bar-span" (click)="canvas.toPrevious()"></span>
+                </nz-tooltip>
+                <!-- 重做 -->
+                <nz-tooltip placement="top" [nzTitle]="translate.instant('TITLE_SET_TO_NEXT')">
+                    <span nz-tooltip class="iconfont icon-redo ml20 bar-span" (click)="canvas.toNext()"></span>
+                </nz-tooltip>
+                <!-- 放小 -->
+                <nz-tooltip placement="top" [nzTitle]="translate.instant('TITLE_SET_MINIMIZE')">
+                    <span nz-tooltip class="iconfont icon-minimize ml20 bar-span" [class.disabled]="canvasOptions?.zoom<=canvasConfig.minZoom" (click)="changeZoom('-')"></span>
+                </nz-tooltip>
+                <span class="ml20 bar-span zoomLabel">{{canvasOptions.zoom*100 | int}}%</span>
+                <!-- 放大 -->
+                <nz-tooltip placement="top" [nzTitle]="translate.instant('TITLE_SET_MAXMIZE')">
+                    <span nz-tooltip class="iconfont icon-maxmize ml20 bar-span" [class.disabled]="canvasOptions?.zoom>=canvasConfig.maxZoom" (click)="changeZoom('+')"></span>
+                </nz-tooltip>
+                <!-- 透明度 -->
+                <div class="transparency bar-span">
+                    <nz-tooltip placement="top" [nzTitle]="translate.instant('TITLE_SET_OPACITY')">
+                        <span nz-tooltip class="iconfont icon-transparency ml20" (click)="showStatus.switch($event,'transparent')"></span>
+                    </nz-tooltip>
+                    <div class="transparency-box" *ngIf="showStatus.transparent" (click)="stopPropagation($event)">
+                        <span class="number-label">0.1</span>
+                        <nz-slider [nzStep]="0.1" [nzDefaultValue]="activeOptions.opacity" [nzMin]='0.1' [nzMax]='1' [(ngModel)]="activeOptions.opacity" (ngModelChange)="canvas.setOpacity(activeOptions.opacity)"></nz-slider>
+                        <span class="number-label">1</span>
+                    </div>
+                </div>
+                <!-- 阴影 -->
+                <div class="box-shadow bar-span">
+                    <nz-tooltip placement="top" [nzTitle]="translate.instant('TITLE_SET_SHADOW')">
+                        <span nz-tooltip class="ml20 iconfont icon-shadow" (click)="showStatus.switch($event,'shadow')"></span>
+                    </nz-tooltip>
+                    <div class="dialog" *ngIf="showStatus.shadow" (click)="stopPropagation($event)">
+                        <ul>
+                            <li>
+                                <label class="text-info">{{'TITLE_SET_SHADOW_COLOR' | translate}}</label>
+                                <div class="hand">
+                                    <span class="color" [style.background]="activeOptions.shadow.color" (click)="shadowColor.click()"></span>
+                                    <input #shadowColor [(ngModel)]="activeOptions.shadow.color" (change)="canvas.setShadow({color:activeOptions.shadow.color})" style="display:none;" type="color">
+                                </div>
+                            </li>
+                            <li>
+                                <label class="text-info">{{'TITLE_SET_SHADOW_BLUR' | translate}}</label>
+                                <div class="hand">
+                                    <label class="slider-start">0</label>
+                                    <nz-slider [nzStep]="1" [nzDefaultValue]="0" [nzMin]='0' [nzMax]='200' [(ngModel)]="activeOptions.shadow.blur" (ngModelChange)="canvas.setShadow({blur:activeOptions.shadow.blur})"></nz-slider>
+                                    <label class="slider-end">200</label>
+                                </div>
+                            </li>
+                            <li>
+                                <label class="text-info">{{'TITLE_SET_SHADOW_OFFSETX' | translate}}</label>
+                                <div class="hand">
+                                    <label class="slider-start">-50</label>
+                                    <nz-slider [nzStep]="1" [nzDefaultValue]="0" [nzMin]='-50' [nzMax]='50' [(ngModel)]="activeOptions.shadow.offsetX" (ngModelChange)="canvas.setShadow({offsetX:activeOptions.shadow.offsetX})"></nz-slider>
+                                    <label class="slider-end">50</label>
+                                </div>
+                            </li>
+                            <li>
+                                <label class="text-info">{{'TITLE_SET_SHADOW_OFFSETY' | translate}}</label>
+                                <div class="hand">
+                                    <label class="slider-start">-50</label>
+                                    <nz-slider [nzStep]="1" [nzDefaultValue]="0" [nzMin]='-50' [nzMax]='50' [(ngModel)]="activeOptions.shadow.offsetY" (ngModelChange)="canvas.setShadow({offsetY:activeOptions.shadow.offsetY})"></nz-slider>
+                                    <label class="slider-end">50</label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- 边框 -->
+                <div class="box-shadow  bar-span">
+                    <nz-tooltip placement="top" [nzTitle]="translate.instant('TITLE_SET_BORDER')">
+                        <span nz-tooltip class="ml20 iconfont icon-border" (click)="showStatus.switch($event,'stroke')"></span>
+                    </nz-tooltip>
+                    <div class="dialog" *ngIf="showStatus.stroke" (click)="stopPropagation($event)">
+                        <ul>
+                            <li>
+                                <label class="text-info">{{'TITLE_SET_BORDER_COLOR' | translate}}</label>
+                                <div class="hand">
+                                    <span class="color" [style.background]="activeOptions.stroke" (click)="strokeColor.click()"></span>
+                                    <input #strokeColor [(ngModel)]="activeOptions.stroke" (change)="canvas.setStroke(activeOptions.stroke)" style="display:none;" type="color">
+                                </div>
+                            </li>
+                            <li>
+                                <label class="text-info">{{'TITLE_SET_BORDER_WIDTH' | translate}}</label>
+                                <div class="hand">
+                                    <label class="slider-start">0</label>
+                                    <nz-slider [nzStep]="0.1" [nzDefaultValue]="0" [nzMin]='0' [nzMax]='2' [(ngModel)]="activeOptions.strokeWidth" (ngModelChange)="canvas.setStrokeWidth(activeOptions.strokeWidth)"></nz-slider>
+                                    <label class="slider-end">2</label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- 背景color -->
+                <nz-tooltip placement="top" [nzTitle]="translate.instant('TITLE_SET_BACKGROUND_COLOR')">
+                    <span nz-tooltip class="iconfont icon-rec_bg ml20 bar-span" [style.background]="activeOptions.backgroundColor" (click)="fontBgColor.click()"></span>
+                </nz-tooltip>
+                <input #fontBgColor [(ngModel)]="activeOptions.backgroundColor" (change)="canvas.setBackgroundColor(activeOptions.backgroundColor)" style="display:none;" type="color">
+                <!-- 删除 -->
+                <nz-tooltip placement="top" [nzTitle]="translate.instant('TITLE_SET_DELETE')">
+                    <span nz-tooltip class="iconfont ml20 icon-delete bar-span" (click)="canvas.removeEle()"></span>
+                </nz-tooltip>
+                <!-- 锁定 -->
+                <nz-tooltip placement="top" [nzTitle]="translate.instant('TITLE_SET_LOCK')">
+                    <span nz-tooltip class="iconfont ml20 bar-span" [ngClass]="{'active icon-lock':activeOptions.locked,'icon-unlock':!activeOptions.locked}" (click)="canvas.switchLock()"></span>
+                </nz-tooltip>
+                <!-- 字体 -->
+                <div class="tool-bar-text-box" *ngIf="activeOptions.type === 'textbox'">
+                    <!-- 颜色 -->
+                    <nz-tooltip placement="bottom" [nzTitle]="translate.instant('TITLE_SET_FONT_COLOR')">
+                        <span nz-tooltip class="color ml20 bar-span" [style.background]="activeOptions.fill" (click)="fontColor.click()"></span>
+                    </nz-tooltip>
+                    <input #fontColor [(ngModel)]="activeOptions.fill" (change)="canvas.setTextColor(activeOptions.fill)" style="display:none;" type="color">
+
+                    <div class="font-family bar-span">
+                        <nz-dropdown [nzClickHide]='false'>
+                            <a class="ant-dropdown-link" nz-dropdown>
+                                    {{convertFontFamily(activeOptions.fontFamily)}}
+                                    <i class="anticon anticon-down"></i>
+                                </a>
+                            <ul nz-menu>
+                                <li nz-menu-item *ngFor="let item of fontFamilysList" (click)="canvas.setFontFamily(item.value)">
+                                    {{item.label}}
+                                </li>
+                            </ul>
+                        </nz-dropdown>
+                    </div>
+                    <!-- 字体大小 -->
+                    <nz-tooltip placement="bottom" [nzTitle]="translate.instant('TITLE_SET_FONT_SIZE')">
+                        <input nz-tooltip class="font-size ml20 bar-span" type="number" min="12" max="150" [(ngModel)]="activeOptions.fontSize" (change)="canvas.setTextSize(activeOptions.fontSize)">
+                    </nz-tooltip>
+                    <!-- 加粗 -->
+                    <nz-tooltip placement="bottom" [nzTitle]="translate.instant('TITLE_SET_FONT_BOLD')">
+                        <span nz-tooltip class="iconfont icon-bold ml20 bar-span" [class.active]="activeOptions.fontWeight==='bold'" (click)='canvas.switchBold()'></span>
+                    </nz-tooltip>
+                    <!-- 斜体 -->
+                    <nz-tooltip placement="bottom" [nzTitle]="translate.instant('TITLE_SET_FONT_ITALIC')">
+                        <span nz-tooltip class="iconfont icon-Italic1 ml20 bar-span" [class.active]="activeOptions.fontStyle==='italic'" (click)='canvas.switchItalic()'></span>
+                    </nz-tooltip>
+                    <!-- 下划线 -->
+                    <nz-tooltip placement="bottom" [nzTitle]="translate.instant('TITLE_SET_FONT_UNDERLINE')">
+                        <span nz-tooltip class="iconfont icon-underline ml20 bar-span" [class.active]="activeOptions.underline" (click)='canvas.switchUnderline()'></span>
+                    </nz-tooltip>
+                    <!-- 中划线 -->
+                    <nz-tooltip placement="bottom" [nzTitle]="translate.instant('TITLE_SET_FONT_THROUGHLINE')">
+                        <span nz-tooltip class="iconfont icon-line_through ml20 bar-span" [class.active]="activeOptions.linethrough" (click)='canvas.switchLinethrough()'></span>
+                    </nz-tooltip>
+                    <!-- 上划线 -->
+                    <nz-tooltip placement="bottom" [nzTitle]="translate.instant('TITLE_SET_FONT_OVERLINE')">
+                        <span nz-tooltip class="iconfont icon-overline ml20 bar-span" [class.active]="activeOptions.overline" (click)='canvas.switchOverline()'></span>
+                    </nz-tooltip>
+                    <!-- 居左 -->
+                    <nz-tooltip placement="bottom" [nzTitle]="translate.instant('TITLE_SET_FONT_ALIGN_LEFT')">
+                        <span nz-tooltip class="iconfont icon-left ml20 bar-span" [class.active]="activeOptions.textAlign === 'left'" (click)='canvas.setTextAlign("left")'></span>
+                    </nz-tooltip>
+                    <!-- 居中 -->
+                    <nz-tooltip placement="bottom" [nzTitle]="translate.instant('TITLE_SET_FONT_ALIGN_CENTER')">
+                        <span nz-tooltip class="iconfont icon-center ml20 bar-span" [class.active]="activeOptions.textAlign === 'center'" (click)='canvas.setTextAlign("center")'></span>
+                    </nz-tooltip>
+                    <!-- 居右 -->
+                    <nz-tooltip placement="bottom" [nzTitle]="translate.instant('TITLE_SET_FONT_ALIGN_RIGHT')">
+                        <span nz-tooltip class="iconfont icon-right ml20 bar-span" [class.active]="activeOptions.textAlign === 'right'" (click)='canvas.setTextAlign("right")'></span>
+                    </nz-tooltip>
+                    <!-- 间距 -->
+                    <div class="space bar-span">
+                        <nz-tooltip placement="bottom" [nzTitle]="translate.instant('TITLE_SET_FONT_SPACING')">
+                            <span nz-tooltip class="ml20 iconfont icon-spacing" (click)="showStatus.switch($event,'spacing')"></span>
+                        </nz-tooltip>
+                        <div class="space-box" *ngIf="showStatus.spacing" (click)="stopPropagation($event)">
+                            <div class="item">
+                                <span class="info-label">{{'TITLE_SET_FONT_SPACING_LETTER' | translate}} 0</span>
+                                <div class="slider-box">
+                                    <nz-slider [nzStep]="1" [nzDefaultValue]="activeOptions.charSpacing" [nzMin]='0' [nzMax]='800' [(ngModel)]="activeOptions.charSpacing" (ngModelChange)="canvas.setCharSpacing(activeOptions.charSpacing)"></nz-slider>
+                                </div>
+                                <span class="slider-end">800</span>
+                            </div>
+                            <div class="item">
+                                <span class="info-label">{{'TITLE_SET_FONT_SPACING_LINE' | translate}} 1</span>
+                                <div class="slider-box">
+                                    <nz-slider [nzStep]="0.1" [nzDefaultValue]="activeOptions.lineHeight" [nzMin]='1' [nzMax]='5' [(ngModel)]="activeOptions.lineHeight" (ngModelChange)="canvas.setLineHeight(activeOptions.lineHeight)"></nz-slider>
+                                </div>
+                                <span class="slider-end">5</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- TEXT背景color -->
+                    <nz-tooltip placement="bottom" [nzTitle]="translate.instant('TITLE_SET_FONT_BACKGROUND_COLOR')">
+                        <span nz-tooltip class="iconfont icon-text_bg ml20 bar-span" [style.background]="activeOptions.textBackgroundColor" (click)="fontTextBgColor.click()"></span>
+                    </nz-tooltip>
+                    <input #fontTextBgColor [(ngModel)]="activeOptions.textBackgroundColor" (change)="canvas.setTextBackgroundColor(activeOptions.textBackgroundColor)" style="display:none;" type="color">
+                </div>
+            </div>
+            <!-- 视图区 -->
+            <div id="view-box">
+                <div class="canvas-info">{{canvasConfig.plabel}} {{canvasConfig.label}} {{canvasOptions.width}} px X {{canvasOptions.height}} px</div>
+                <div id="canvas-box" [style.margin-left.px]="-(canvasOptions.width*canvasOptions.zoom)/2" [style.margin-top.px]="-(canvasOptions.height*canvasOptions.zoom)/2">
+                    <app-adv-canvas [id]="'canvas'" [config]='canvasConfig' [(options)]='canvasOptions' [(status)]='activeOptions'></app-adv-canvas>
+                </div>
+            </div>
+            <!-- 底部工具栏 -->
+            <div class="tool-bar-bottom">
+                <button type="button" class="btn  pull-right mt10 mr40">
+                    <span class="iconfont icon-apply mr10"></span>{{'BUTTON_APPLY' | translate}}
+                </button>
+                <button type="button" (click)="openDialogInputName()" class="btn pull-right mt10 mr20">
+                    <span class="iconfont icon-preview mr10"></span>{{'BUTTON_EXPORT' | translate}}
+                </button>
+                <button type="button" (click)="canvas.export()" class="btn pull-right mt10 mr20">
+                    <span class="iconfont icon-save mr10"></span>{{'BUTTON_SAVE' | translate}}
+                </button>
+                <button type="button" (click)="preview()" class="btn pull-right mt10 mr20">
+                    <span class="iconfont icon-preview mr10"></span>{{'BUTTON_PREVIEW' | translate}}
+                </button>
+                <!-- <button type="button" (click)="fileInput.click()" class="btn  pull-right mt10 mr40">
+                        <input (change)="loadFromJSON()" type="file" #fileInput style="display:none" />
+                        <span class="iconfont icon-apply mr10"></span>导入</button>
+                    <button type="button" (click)="selectImg()" class="btn  pull-right mt10 mr40">
+                        <span class="iconfont icon-apply mr10"></span>选图</button> -->
+                <!-- <button type="button" (click)="upload()" class="btn pull-right mt10 mr20">
+                        <span class="iconfont icon-preview mr10"></span>上传图片</button>
+                    <input type="file" name="img" #uploadFile> -->
+            </div>
+        </div>
+    </div>
+</div>
